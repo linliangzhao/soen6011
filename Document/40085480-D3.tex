@@ -1,0 +1,90 @@
+\documentclass[12pt]{extarticle}
+%Some packages I commonly use.
+\usepackage[english]{babel}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage[normalem]{ulem}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{clrscode3e}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{indentfirst}
+\usepackage[utf8]{inputenc}
+\usepackage[top=1 in,bottom=1in, left=1 in, right=1 in]{geometry}
+%A bunch of definitions that make my life easier
+\newcommand{\matlab}{{\sc Matlab} }
+\newcommand{\cvec}[1]{{\mathbf #1}}
+\newcommand{\rvec}[1]{\vec{\mathbf #1}}
+\newcommand{\ihat}{\hat{\textbf{\i}}}
+\newcommand{\jhat}{\hat{\textbf{\j}}}
+\newcommand{\khat}{\hat{\textbf{k}}}
+\newcommand{\minor}{{\rm minor}}
+\newcommand{\trace}{{\rm trace}}
+\newcommand{\spn}{{\rm Span}}
+\newcommand{\rem}{{\rm rem}}
+\newcommand{\ran}{{\rm range}}
+\newcommand{\range}{{\rm range}}
+\newcommand{\mdiv}{{\rm div}}
+\newcommand{\proj}{{\rm proj}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\attn}[1]{\textbf{#1}}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{note}{Note}
+\newtheorem{exercise}{Exercise}
+\newcommand{\bproof}{\bigskip {\bf Proof. }}
+\newcommand{\eproof}{\hfill\qedsymbol}
+\newcommand{\Disp}{\displaystyle}
+\newcommand{\qe}{\hfill\(\bigtriangledown\)}
+\setlength{\columnseprule}{1 pt}
+\title{Problem 5 and 7}
+\date{}
+\author{Liangzhao Lin 40085480}
+\begin{document}
+\maketitle
+\centerline {Repository: \url{https://github.com/linliangzhao/soen6011.git}}
+
+\section{Code review}
+\indent
+I did a code review of Manushree Mallaraju (ID40082236)'s function source code in four aspects. These four aspects are general, performance, security and documentation. The address of the code review report is
+\href{https://github.com/linliangzhao/soen6011/commit/37d2a90a38c852aa9674cc876f847244e332c16c#commitcomment-34526371}{here}
+and the following is a summary of my code review.
+\subsection{Summary}
+\begin{enumerate}
+\item[-]General. The code can compile successfully and all the code can be understood easily, there is no any redundant or duplicate code and no any commented out code. In addition, all loops  have a set length and correct termination conditions, the names used in the program convey intent. What's more, the codes do not use any built-in function apart from input and output which is conform to the problem requirement. However, the code does not conform to the Google programming style which is identical across the team. What's more, some extra output statements should be removed such as “positive power" .
+\item[-]Performance. The performance of the function can be improved. The function should add more check for the input x, because if the user input a very large number, such as $10^{100}$, the program will calculate for a very long time to get the result, for such a large number, the function can directly output “Infinity" without entering the calculation.
+\item[-]Security. The input $x$ can be checked for integer or not in the code, however, it is not enough. There is no checking for the correct type and length which can causes error or exception.
+In addition, the code does not have exception handling which will make the program crash if the user's input is not a number, such as characters.
+\item[-]Documentation. Comments well exist and describe the intent of the code and all functions are commented. For example, when there is a while loop statement, programmer wrote a comment “ loop until we reach desired accuracy " which make the code understood easily.
+\end{enumerate}
+\subsection{Review approach}
+As for my review approach, I used Github's code review feature. The project started with a pull request and I can write my code review comments for the code according to a code review checklist$^{[1]}$. Apart from the manually review, I also used an automatically tool called Codacy. Coday issued that the code should avoid reassigning parameters such as 'exp' and use explicit scoping instead of the default package private level.
+\section{Testing}
+\indent
+I used the test cases provided by Hina Masood Ahmed (ID40076287) to test the function, and all the test cases passed successfully.
+\newline
+\indent
+Hina provided the test case source code which is wrote under the JUnit test framework and I used the JUnit Eclipse plugin for testing.
+\newline
+\indent
+I build a JUnit environment on Eclipse. Firstly, download junit4.10.jar and open Eclipse then click on project and property then Build Path and Configure Build Path, finally use the Add External Jar button to add junit-4.10.jar to the library. The environment was built successfully.
+\newline
+\indent
+I put the source code files of the function and the test case source code file in the same folder, and run the test case file as JUnit Test. The tests finished after 0.026 seconds and all 6 tests are successful.
+\section{Reference}
+
+\noindent [1] (2017). Code review checklist. Available: https://nyu-cds.github.io/effective-code-reviews/03-checklist/.  
+\end{document}
